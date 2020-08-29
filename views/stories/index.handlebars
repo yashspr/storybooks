@@ -1,0 +1,26 @@
+<h1 class="big-h1">Stories {{#if userName}} by {{userName}} {{/if}}</h1>
+
+<div class="public-stories-container">
+	{{#each stories}}
+		<div class="public-story">
+			<div class="public-story-body">
+				<h5><a href="/stories/show/{{this.id}}">{{title}}</a></h5>
+				<p class="story-text">{{stripTags (truncate summary 100)}}</p>
+				<br>
+				<div class="public-story-author">
+					<img src="{{user.image}}" alt="" srcset="">
+					{{#if (checkStoryUserEqualsUser this.user.id ../user.id)}}
+						<a href="/stories/my">{{this.user.fullName}}</a>
+					{{else}}
+						<a href="/stories/user/{{this.user.id}}">{{this.user.fullName}}</a>
+					{{/if}}
+				</div>
+			</div>
+			<div class="read-more">
+				<a href="/stories/show/{{id}}" class="btn btn-secondary">Read More</a>
+			</div>
+		</div>
+	{{else}}
+		<h5>No stories found</h5>
+	{{/each}}
+</div>

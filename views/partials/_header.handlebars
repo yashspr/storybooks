@@ -1,0 +1,97 @@
+<nav>
+	<input type="checkbox" class="nav-toggle-button" id="nav-toggle-button">
+	<label for="nav-toggle-button" class="nav-toggle-button"><i class="fas fa-bars"></i></label>
+	<a href="/" class="nav-logo">
+		StoryBooks
+	</a>
+	{{!-- RIGHT NAV --}}
+	<ul class="nav-main">
+		{{#if user }}
+			<li><a class="btn btn-secondary" href="/dashboard">Dashboard</a></li>
+			<li><a class="btn btn-secondary" href="/stories/add">Add Story</a></li>
+			<li><a class="btn btn-secondary" href="/auth/logout"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
+			</li>
+		{{else}}
+			<li><a class="btn btn-secondary" href="/stories"><i class="fas fa-book"></i>&nbsp; Public Stories</a></li>
+			<li>
+				<a href="/auth/google" class="btn btn-secondary"><i class="fab fa-google"></i>&nbsp;Login With
+					Google</a>
+			</li>
+
+			<li>
+				<button class="trigger btn btn-secondary"><i class="fab fa-mail"></i>&nbsp;Sign Up/Login</button>
+			</li>
+		{{/if}}
+	</ul>
+
+	{{!-- SIDE MENU --}}
+
+	<div class="nav-sidebar">
+
+		<ul id="main-menu">
+
+			{{#if user }}
+				<li><a class="btn btn-secondary" href="/stories"><i class="fas fa-book"></i> Public Stories</a></li>
+				<li><a class="btn btn-secondary" href="/dashboard"><i class="fas fa-cog"></i> Dashboard</a></li>
+				<li><a class="btn btn-secondary" href="/stories/add"><i class="fas fa-plus"></i> Add Story<a /></li>
+				<li><a class="btn btn-secondary" href="/stories/my"><i class="fas fa-book"></i> My Stories</a></li>
+				<li><a class="btn btn-secondary" href="/auth/logout"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
+				</li>
+			{{else}}
+				<li>
+					<a href="/auth/google" class="btn btn-secondary"><i class="fab fa-google"></i> Login With Google</a>
+				</li>
+			{{/if}}
+		</ul>
+
+	</div>
+
+</nav>
+
+<div class="cmodal">
+	<div class="cmodal-content">
+		<span class="close-button">&times;</span>
+		<div class="signup-login-container">
+			<div class="signup">
+				<h2>Signup</h2>
+				<form id="signupform" action="/auth/signup" method="POST">
+					<div class="input input-field">
+						<input type="text" name="fname" required>
+						<label for="">First Name</label>
+					</div>
+					<div class="input input-field">
+						<input type="text" name="lname" required>
+						<label for="">
+							Last Name
+						</label>
+					</div>
+					<div class="input input-field">
+						<input type="email" name="email" pattern=".*@.*\..*" oninvalid="this.setCustomValidity('Enter a Valid Email')"
+    					oninput="this.setCustomValidity('')" required>
+						<label for="">Email</label>
+					</div>
+					<div class="input input-field">
+						<input type="password" name="pwd" required>
+						<label for="">Password</label>
+					</div>
+				</form>
+				<input type="submit" class="btn btn-secondary" form="signupform" value="Signup">
+			</div>
+			<div class="login">
+				<h2>Login</h2>
+				<form id="loginform" action="/auth/login" method="POST">
+					<div class="input input-field">
+						<input type="email" name="email" pattern=".*@.*\..*" oninvalid="this.setCustomValidity('Enter a Valid Email')"
+    					oninput="this.setCustomValidity('')" required>
+						<label for="">Email</label>
+					</div>
+					<div class="input input-field">
+						<input type="password" name="pwd" required>
+						<label for="">Password</label>
+					</div>
+				</form>
+				<input type="submit" class="btn btn-secondary" form="loginform" value="Login">
+			</div>
+		</div>
+	</div>
+</div>

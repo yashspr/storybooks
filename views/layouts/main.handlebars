@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>{{ title }}</title>
+
+		<!-- Compiled and minified CSS -->
+		{{!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> --}}
+		<link rel="stylesheet" href="/css/all.css">
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/css/main.css">
+		<link href="/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+		<link href="/froala-editor/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+
+		<div class="non-footer">
+
+			{{> _header }}
+
+			<div class="non-nav">
+				<main>
+					<div class="container">
+
+						{{#if success_msg }}
+							{{#each success_msg}}
+								<div class="alert alert-success">
+									{{this}}
+								</div>
+							{{/each}}
+						{{/if}}
+
+						{{#if error_msg }}
+							{{#each error_msg}}
+								<div class="alert alert-failure">
+									{{this}}
+								</div>
+							{{/each}}
+						{{/if}}
+
+						{{{ body }}}
+					</div>
+				</main>
+			</div>
+
+		</div>
+		
+
+		{{> _footer }}
+
+		{{!-- jQuery CDN --}}
+		<script src="/js/jquery-3.4.1.min.js"></script>
+		<script src="/js/main.js"></script>
+		<script type="text/javascript" src="/froala-editor/js/froala_editor.pkgd.min.js"></script>
+		<script>
+			var editor = new FroalaEditor('#story-body', {
+				// Set the image upload parameter.
+				imageUploadParam: 'img',
+
+				// Set the image upload URL.
+				imageUploadURL: 'http://localhost:5000/upload_image',
+
+				// Additional upload params.
+				imageUploadParams: {},
+
+				// Set request type.
+				imageUploadMethod: 'POST',
+
+				// Set max image size to 5MB.
+				imageMaxSize: 5 * 1024 * 1024,
+
+				// Allow to upload PNG and JPG.
+				imageAllowedTypes: ['jpeg', 'jpg', 'png'],
+
+				events: {
+					'image.beforeUpload': function (images) {
+						// Return false if you want to stop the image upload.
+					},
+					'image.uploaded': function (response) {
+						// Image was uploaded to the server.
+					},
+					'image.inserted': function ($img, response) {
+						// Image was inserted in the editor.
+					},
+					'image.replaced': function ($img, response) {
+						// Image was replaced in the editor.
+					},
+					'image.error': function (error, response) {
+						// Bad link.
+						if (error.code == 1) {}
+
+						// No link in upload response.
+						else if (error.code == 2) {}
+
+						// Error during image upload.
+						else if (error.code == 3) {}
+
+						// Parsing response failed.
+						else if (error.code == 4) {}
+
+						// Image too text-large.
+						else if (error.code == 5) {}
+
+						// Invalid image type.
+						else if (error.code == 6) {}
+
+						// Image can be uploaded only to same domain in IE 8 and IE 9.
+						else if (error.code == 7) {}
+
+						// Response contains the original server response to the request if available.
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

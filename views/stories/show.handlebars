@@ -1,0 +1,68 @@
+<div class="fr-view story-container">
+	<div class="story-body">
+		<h1 class="story-title">
+			{{story.title}}
+			<small class="">{{{editIcon story.user.id user.id story.id false}}}</small>
+		</h1>
+		<div class="story-content-main">
+			<span>{{formatDate story.date 'MMMM Do YYYY'}} </span>
+			<div>{{{story.body}}}</div>
+		</div>
+	</div>
+
+	<div class="story-author-info">
+		<div>
+			<span class="author-name">{{story.user.fullName}}</span>
+			<img class="author-image" src="{{story.user.image}}">
+		</div>
+		<div>
+			{{#if (checkStoryUserEqualsUser story.user.id user.id)}}
+				<a href="/stories/my">More From {{story.user.firstName}}</a>
+			{{else}}
+				<a href="/stories/user/{{story.user.id}}">More From {{story.user.firstName}}</a>
+			{{/if}}
+		</div>
+	</div>
+
+	{{#if story.allowComments}}
+			<div class="story-comments-container">
+				<div class="post-comment">
+					<div>
+						<span class="">Comments</span>
+						{{#if user}}
+							<form action="/stories/comment/{{story.id}}" method="post">
+								<div class="input">
+									<label for="commentBody">Add Comment</label>
+									<textarea name="commentBody" rows=1></textarea>
+								</div>
+								<button type="submit" class="btn btn-secondary">Submit</button>
+							</form>
+						{{else}}
+							<p>Please login to leave a comment</p>
+						{{/if}}
+					</div>
+				</div>
+
+				<div class="show-comments-container">
+
+					{{#each story.comments}}
+						<div class="show-comments">
+							<div class="">
+								<p class="comment-body">{{this.commentBody}}</p>
+								<div class="commenter">
+									{{#if (checkStoryUserEqualsUser this.commentUser.id ../user.id)}}
+										- <a href="/stories/my">{{commentUser.fullName}}</a>
+									{{else}}
+										- <a href="/stories/user/{{this.commentUser.id}}">{{commentUser.fullName}}</a>
+									{{/if}}
+								</div>
+								<small>Posted: {{formatDate this.commentDate 'MMMM Do YYYY'}}</small>
+							</div>
+						</div>
+
+					{{/each}}
+
+				</div>
+			</div>
+		{{/if}}
+</div>

@@ -5,7 +5,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
+const Handlebars = require('handlebars')
 const exphbs = require('express-handlebars');
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const cors = require('cors');
@@ -48,6 +50,7 @@ var app = express();
 const { truncate, stripTags, formatDate, select, editIcon, checkStoryUserEqualsUser } = require('./helpers/hbs');
 
 app.engine('handlebars', exphbs({
+	handlebars: allowInsecurePrototypeAccess(Handlebars),
 	helpers: {
 		truncate,
 		stripTags,
@@ -56,7 +59,7 @@ app.engine('handlebars', exphbs({
 		editIcon,
 		checkStoryUserEqualsUser
 	},
-	defaultLayout: 'main'
+	defaultLayout: 'main',
 }));
 
 app.set('view engine', 'handlebars');
